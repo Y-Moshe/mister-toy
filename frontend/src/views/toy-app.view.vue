@@ -1,6 +1,6 @@
 <template>
   <section class="toy-app">
-    <toy-filter :filterBy="filterBy" @change="changeFilter" />
+    <toy-filter :filterBy="filterBy" @change="handleFilterChange" />
     <div class="add-toy" v-if="user?.isAdmin">
       <router-link to="/toy/edit">Add a toy +</router-link>
     </div>
@@ -30,9 +30,14 @@ import loader from '../cmps/loader.vue'
 import pagination from '../cmps/pagination.vue'
 
 export default {
+  data() {
+    return {
+      handleFilterChange: () => {}
+    }
+  },
   created() {
-    this.$store.dispatch({ type: 'loadToys' })
-    this.doFilter = utilService.debounce(this.changeFilter, 500) // MAKE IT WORK WITH THE DEBOUNCE
+    this.$store.dispatch(actions.loadToys())
+    this.handleFilterChange = utilService.debounce(this.doChangeFilter, 500)
   },
   methods: {
     removeToy(toyId) {
@@ -40,9 +45,8 @@ export default {
         .then(() => ElMessage.success(`Toy ${toyId} removed successfully!`))
         .catch(() => ElMessage.error(`Failed to remove ${toyId}`))
     },
-    changeFilter(name, value) {
-      const target = { name, value }
-      this.$store.commit(mutations.setFilterBy(target))
+    doChangeFilter(filterBy) {
+      this.$store.commit(mutations.setFilterBy(utilService.deepCopy(filterBy)))
     },
     // goNexrPrevPage(diff) {
     //   const { page: currPage } = this.filterBy

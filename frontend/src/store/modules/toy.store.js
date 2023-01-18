@@ -4,7 +4,7 @@ export const mutations = {
   setToys: toys => ({ type: 'setToys', toys }),
   removeToy: toyId => ({ type: 'removeToy', toyId }),
   saveToy: toy => ({ type: 'saveToy', toy }),
-  setFilterBy: target => ({ type: 'setFilterBy', target })
+  setFilterBy: filterBy => ({ type: 'setFilterBy', filterBy })
 }
 
 export const actions = {
@@ -43,8 +43,8 @@ export const toyModule = {
 
       } else toys.push(toy)
     },
-    setFilterBy(state, { target }) {
-      state.filterBy[target.name] = target.value
+    setFilterBy(state, { filterBy }) {
+      state.filterBy = { ...filterBy }
       state.toys = []
       this.dispatch({ type: 'loadToys' })
     }
