@@ -1,6 +1,6 @@
 <template>
   <section class="dashboard">
-    <el-row>
+    <el-row justify="center">
       <el-col :offset="2" :span="10">
         <awesome-bar-chart :data="barChartData" />
       </el-col>
