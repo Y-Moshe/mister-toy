@@ -1,9 +1,8 @@
 
 <template>
-  <section class="chat-btn">
-    <!-- v-outside-click="() => isOpen = false" -->
+  <section class="chat-btn" v-outside-click="() => this.isOpen = false">
 
-    <section class="chat-box" :style="{ display: isOpen ? 'grid' : 'none' }">
+    <section class="chat-box" :style="{ display: isOpen ? 'grid' : 'none' }" @click.stop="">
       <div class="chat-content">
         <p v-for="msg in messages"
           :key="msg.id"
@@ -11,7 +10,7 @@
       </div>
 
       <el-form :model="form" @keydown.enter="handleMessage">
-        <el-input type="text" v-model="form.message" placeholder="Type anything..." v-focus />
+        <el-input type="text" v-model="form.message" placeholder="Type anything..." v-focus ref="inpRef" />
         <el-button type="success" @click="handleMessage" :icon="sendIcon" circle />
       </el-form>
     </section>
@@ -37,6 +36,7 @@ export default {
   methods: {
     handleMessage() {
       this.$emit('messageSend', this.form.message)
+      this.$refs.inpRef?.focus()
       this.form.message = ''
     },
     getUserName(name) {
