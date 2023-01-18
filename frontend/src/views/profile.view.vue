@@ -1,12 +1,17 @@
 <template>
-  <h1>Profile</h1>
+  <section>
+    <h1>{{user?.fullname}} Profile</h1>
+    <review-list :reviews="reviews" @remove="() => {}" />
+  </section>
 </template>
 
 <script>
 import { ElMessage } from 'element-plus'
 import { reviewService } from '../services/review.service'
+import reviewList from '../cmps/review/review-list.vue'
 
 export default {
+  components: { reviewList },
   data() {
     return {
       reviews: []
@@ -24,7 +29,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.getters.user
+      return this.$store.getters.user
     }
   }
 }
