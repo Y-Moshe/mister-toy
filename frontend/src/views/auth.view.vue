@@ -22,8 +22,14 @@
         <el-input type="password" v-model="credentials.password" />
       </el-form-item>
 
-      <el-button type="primary" @click="handleSubmit" :loading="isLoading">{{ formType }}</el-button>
-      <el-button v-if="isLogin" type="warning" @click="loginAsAdmin" plain>Login as admin</el-button>
+      <el-form-item>
+        <el-button type="primary" @click="handleSubmit" :loading="isLoading">{{ formType }}</el-button>
+        <template v-if="isLogin">
+          <el-divider>Or</el-divider>
+          <el-button type="info" @click="demoLogin" plain>Demo login</el-button>
+          <el-button type="warning" @click="loginAsAdmin" plain>Login as Admin</el-button>
+        </template>
+      </el-form-item>
     </el-form>
   </section>
 </template>
@@ -58,11 +64,16 @@ export default {
        .catch(err => console.log('err', err))
        .finally(() => this.isLoading = false)
     },
+    demoLogin() {
+      this.credentials.username = 'Maor123'
+      this.credentials.password = '123'
+      this.handleSubmit()
+    },
     loginAsAdmin() {
       this.credentials.username = 'admin'
       this.credentials.password = 'admin'
       this.handleSubmit()
-    }
+    },
   },
   computed: {
     formType() {
