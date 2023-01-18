@@ -1,0 +1,6 @@
+.toy-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
+  gap: 10px;
+}
