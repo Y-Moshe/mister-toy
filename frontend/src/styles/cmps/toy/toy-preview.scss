@@ -1,6 +1,7 @@
 .toy-preview {
     display: flex;
     flex-direction: column;
+    height: 100%;
     
     @media (min-width: 576px) {
         max-width: 250px;
@@ -38,7 +39,7 @@
     & .toy-actions {
         display: flex;
         justify-content: center;
-        gap: 15px;
+        gap: 25px;
     }
 
     & .toy-actions a {
