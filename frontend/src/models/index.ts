@@ -15,3 +15,12 @@ export interface IToy {
   imgUrl: string;
   reviews: any[];
 }
+
+export interface IFilterBy {
+  keyword: string;
+  page?: number;
+  itemsPerPage?: number;
+  status: '' | 'In-stock' | 'Out-of-Stock';
+  tags: string[];
+  sortBy: 'Name' | 'Price';
+}
