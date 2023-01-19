@@ -113,7 +113,7 @@ const rules = reactive<FormRules>({
 
 const handleSubmit = async (elForm: FormInstance | undefined) => {
   const isValid = await elForm.validate((isValid) => isValid)
-  if (!isValid) return ElMessage.error('invalid')
+  if (!isValid) return ElMessage.error('Invalid fields, please correct them!')
 
   isLoading.value = true
   const authAction = props.isLogin ? authService.login : authService.signup
@@ -123,7 +123,7 @@ const handleSubmit = async (elForm: FormInstance | undefined) => {
     store.commit({ type: 'setUser', user })
     router.push('/')
   } catch (err) {
-    console.log('err', err)
+    ElMessage.error(err)
   } finally {
     isLoading.value = false
   }
