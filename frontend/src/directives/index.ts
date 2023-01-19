@@ -1,41 +1,46 @@
-export const focusDirective = {
-  mounted: (el) => {
+import { Directive } from 'vue'
+
+export const focusDirective: Directive = {
+  mounted: (el: HTMLInputElement) => {
     el.focus()
   },
 }
 
-export const rainbowDirective = {
-  mounted(el) {
+export const rainbowDirective: Directive = {
+  mounted(el: HTMLElement) {
     const color = _getRandomColor()
     el.style.backgroundColor = color
     el.style.color = _isDarkColor(color) ? 'white' : 'black'
   },
 }
 
-export const clickOutsideDirective = {
-  mounted(el, { value: cb }) {
+interface HTMLElementWithOutsideClick extends HTMLElement {
+  clickOutside: (event: MouseEvent) => void
+}
+export const clickOutsideDirective: Directive = {
+  mounted(el: HTMLElementWithOutsideClick, { value: cb }) {
     el.clickOutside = ({ clientX, clientY }) => {
       const { left, top, width, height } = el.getBoundingClientRect()
       if (
-        !(clientX > left &&
+        !(
+          clientX > left &&
           clientX < left + width &&
           clientY > top &&
-          clientY < top + height)
+          clientY < top + height
+        )
       ) {
-
         cb()
       }
     }
-    setTimeout(() => {
-      document.addEventListener('click', el.clickOutside)
-    }, 0)
+
+    document.addEventListener('click', el.clickOutside)
   },
-  unmounted(el) {
+  unmounted(el: HTMLElementWithOutsideClick) {
     document.removeEventListener('click', el.clickOutside)
   },
 }
 
-function _isDarkColor(c) {
+function _isDarkColor(c: string) {
   c = c.substring(1) // strip #
   const rgb = parseInt(c, 16) // convert rrggbb to decimal
   const r = (rgb >> 16) & 0xff // extract red
@@ -52,5 +57,6 @@ function _getRandomColor() {
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)]
   }
+
   return color
 }
