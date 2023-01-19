@@ -52,11 +52,17 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 
-import { authService } from '../services/auth.service.js'
+import { actions } from '../store/modules/user.store'
+
+interface ICredentials {
+  username: string;
+  password: string;
+  fullname: string;
+}
 
 const props = defineProps({ isLogin: Boolean })
 
-const credentials = reactive({
+const credentials = reactive<ICredentials>({
   username: '',
   password: '',
   fullname: '',
@@ -116,11 +122,10 @@ const handleSubmit = async (elForm: FormInstance | undefined) => {
   if (!isValid) return ElMessage.error('Invalid fields, please correct them!')
 
   isLoading.value = true
-  const authAction = props.isLogin ? authService.login : authService.signup
+  const doAuthAction = props.isLogin ? doLogin : doSignup
 
   try {
-    const user = await authAction(credentials)
-    store.commit({ type: 'setUser', user })
+    await doAuthAction(credentials)
     router.push('/')
   } catch (err) {
     ElMessage.error(err)
@@ -128,6 +133,9 @@ const handleSubmit = async (elForm: FormInstance | undefined) => {
     isLoading.value = false
   }
 }
+
+const doLogin  = (credentials: ICredentials) => store.dispatch(actions.loginUser(credentials))
+const doSignup = (credentials: ICredentials) => store.dispatch(actions.signupUser(credentials))
 
 const demoLogin = () => {
   credentials.username = 'Maor123'
