@@ -13,7 +13,14 @@ export interface IToy {
   inStock: boolean;
   tags: string[];
   imgUrl: string;
-  reviews: any[];
+  reviews: IReview[];
+}
+
+export interface IReview {
+  _id?: string;
+  userId: string;
+  toyId: string;
+  txt: string;
 }
 
 export interface IFilterBy {
