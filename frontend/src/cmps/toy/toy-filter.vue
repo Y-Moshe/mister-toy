@@ -6,13 +6,13 @@ import { TAGS } from '../../services/toy.service'
 import { utilService } from '../../services/util.service'
 
 const props = defineProps<{ filterBy: IFilterBy }>()
-const emits = defineEmits(['change'])
+const emit = defineEmits(['change'])
 
 const filter = reactive<IFilterBy>(utilService.deepCopy(props.filterBy))
 const sortOptions = computed(() => ['Name', 'Price'])
 const tagsOptions = computed(() => TAGS)
 
-const handleChange = () => emits('change', filter)
+const handleChange = () => emit('change', filter)
 </script>
 
 <template>
