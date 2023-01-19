@@ -1,31 +1,23 @@
-<template>
-  <PieChart :chartData="data" :options="options" />
-</template>
-
-<script>
+<script lang="ts" setup>
+import { reactive } from 'vue'
 import { PieChart } from 'vue-chart-3'
-import { Chart, registerables } from 'chart.js'
-
+import { Chart, registerables, ChartOptions } from 'chart.js'
 Chart.register(...registerables)
+defineProps<{ data: any }>()
 
-export default {
-  name: 'awesome-pie-chart',
-  props: { data: Object },
-  components: { PieChart },
-  data() {
-    return {
-      options: {
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label({ label, parsed }) {
-                return `${label}: ${parsed}%`
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+const chartOptions = reactive<ChartOptions>({
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label({ label, parsed }) {
+          return `${label}: ${parsed}%`
+        },
+      },
+    },
+  },
+})
 </script>
+
+<template>
+  <PieChart :chartData="data" :options="chartOptions" />
+</template>

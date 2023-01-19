@@ -1,27 +1,19 @@
-<template>
-  <BarChart :chartData="data" :options="options" />
-</template>
-
-<script>
+<script lang="ts" setup>
+import { reactive } from 'vue'
 import { BarChart } from 'vue-chart-3'
-import { Chart, registerables } from 'chart.js'
-
+import { Chart, registerables, ChartOptions } from 'chart.js'
 Chart.register(...registerables)
+defineProps<{ data: any }>()
 
-export default {
-  name: 'awesome-bar-chart',
-  props: { data: Object },
-  components: { BarChart },
-  data() {
-    return {
-      options: {
-        plugins: {
-          legend: {
-            display: false,
-          }
-        }
-      }
-    }
-  }
-}
+const chartOptions = reactive<ChartOptions>({
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+})
 </script>
+
+<template>
+  <BarChart :chartData="data" :options="chartOptions" />
+</template>
