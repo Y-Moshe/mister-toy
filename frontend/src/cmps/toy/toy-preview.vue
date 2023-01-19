@@ -11,6 +11,7 @@
     <section class="tags">
       <el-tag type="info" v-for="tag in toy.tags">{{ tag }}</el-tag>
     </section>
+    <span class="flex-grow"></span>
     <el-divider><el-icon><MoreFilled /></el-icon></el-divider>
     <section class="toy-actions">
       <router-link :to="toyLink"><el-link type="info" :icon="icons.Reading" /></router-link>

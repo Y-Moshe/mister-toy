@@ -1,7 +1,10 @@
 .toy-preview {
-    max-width: 200px;
     display: flex;
     flex-direction: column;
+    
+    @media (min-width: 576px) {
+        max-width: 250px;
+    }
 
     & .el-card__header h1 {
         text-overflow: ellipsis;
@@ -27,7 +30,6 @@
     }
 
     & .el-card__body .tags {
-        flex-grow: 1;
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
