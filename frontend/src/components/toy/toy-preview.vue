@@ -65,7 +65,7 @@ const inStockClass = computed(() => {
 
       <!-- Toy Actions -->
       <section class="toy-actions">
-        <el-tooltip content="Read">
+        <el-tooltip content="Details">
           <router-link :to="toyLink">
             <el-link type="info" :icon="icons.Reading" />
           </router-link>
