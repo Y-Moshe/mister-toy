@@ -1,17 +1,13 @@
+import { Module } from 'vuex'
+import { IUser } from '../../models'
 import { authService } from '../../services/auth.service'
+import { mutations } from '../mutations'
 
-export const mutations = {
-  setUser: (user) => ({ type: 'setUser', user }),
+interface IUserState {
+  user: IUser[]
 }
 
-export const actions = {
-  loadUser: () => ({ type: 'loadUser' }),
-  loginUser: (credentials) => ({ type: 'loginUser', credentials }),
-  signupUser: (credentials) => ({ type: 'signupUser', credentials }),
-  logoutUser: () => ({ type: 'logoutUser' }),
-}
-
-export const userModule = {
+export const userModule: Module<IUserState, any> = {
   state() {
     return {
       user: null,

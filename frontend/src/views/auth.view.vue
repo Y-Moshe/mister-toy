@@ -52,9 +52,9 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 
-import { actions } from '../store/modules/user.store'
+import { actions } from '../store'
 
-interface ICredentials {
+export interface ICredentials {
   username: string;
   password: string;
   fullname: string;

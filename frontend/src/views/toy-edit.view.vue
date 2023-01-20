@@ -53,7 +53,7 @@
 <script>
 import { ElMessage } from 'element-plus'
 
-import { actions } from '../store/modules/toy.store'
+import { actions } from '../store'
 import { utilService } from '../services/util.service.js'
 import { uploadService } from '../services/upload.service'
 import { toyService, TAGS } from '../services/toy.service.js'

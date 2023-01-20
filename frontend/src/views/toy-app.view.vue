@@ -23,11 +23,10 @@
 import { ElMessage } from 'element-plus'
 import { utilService } from '../services/util.service.js'
 
-import { actions, mutations } from '../store/modules/toy.store'
+import { actions, mutations } from '../store'
 import toyList from '../cmps/toy/toy-list.vue'
 import toyFilter from '../cmps/toy/toy-filter.vue'
 import loader from '../cmps/loader.vue'
-import pagination from '../cmps/pagination.vue'
 
 export default {
   data() {
@@ -41,8 +40,8 @@ export default {
   },
   methods: {
     removeToy(toyId) {
-      this.$store.dispatch(actions.removeToy(toyid))
-        .then(() => ElMessage.success(`Toy ${toyId} removed successfully!`))
+      this.$store.dispatch(actions.removeToy(toyId))
+        .then(() => ElMessage.success(`The toy removed successfully!`))
         .catch(() => ElMessage.error(`Failed to remove ${toyId}`))
     },
     doChangeFilter(filterBy) {
@@ -76,8 +75,7 @@ export default {
   components: {
     toyList,
     toyFilter,
-    loader,
-    pagination
+    loader
   }
 }
 </script>
