@@ -16,8 +16,8 @@
 import { utilService } from '../services/util.service'
 import { TAGS } from '../services/toy.service'
 
-import awesomeBarChart from '../cmps/charts/awesome-bar-chart.vue'
-import awesomePieChart from '../cmps/charts/awesome-pie-chart.vue'
+import awesomeBarChart from '../components/charts/awesome-bar-chart.vue'
+import awesomePieChart from '../components/charts/awesome-pie-chart.vue'
 
 export default {
   components: {

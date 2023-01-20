@@ -58,7 +58,7 @@ import { utilService } from '../services/util.service.js'
 import { uploadService } from '../services/upload.service'
 import { toyService, TAGS } from '../services/toy.service.js'
 
-import loader from '../cmps/loader.vue'
+import loader from '../components/loader.vue'
 
 export default {
   components: { loader },

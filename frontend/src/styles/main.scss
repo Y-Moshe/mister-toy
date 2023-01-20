@@ -10,20 +10,20 @@
 @import './basics/_layout.scss';
 
 // Components
-@import './cmps/loader.scss';
-@import './cmps/chat-btn.scss';
+@import './components/loader.scss';
+@import './components/chat-btn.scss';
 
-@import './cmps/toy/toy-filter.scss';
-@import './cmps/toy/toy-list.scss';
-@import './cmps/toy/toy-preview.scss';
+@import './components/toy/toy-filter.scss';
+@import './components/toy/toy-list.scss';
+@import './components/toy/toy-preview.scss';
 
-@import './cmps/review/review-preview.scss';
+@import './components/review/review-preview.scss';
 
 // Views
-@import './cmps/views/app-toy-view.scss';
-@import './cmps/views/dashboard-view.scss';
-@import './cmps/views/auth-view.scss';
-@import './cmps/views/toy-details.scss';
+@import './views/app-toy-view.scss';
+@import './views/dashboard-view.scss';
+@import './views/auth-view.scss';
+@import './views/toy-details.scss';
 
 .main-app {
     min-height: 100vh;

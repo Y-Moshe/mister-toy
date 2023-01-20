@@ -24,9 +24,9 @@ import { ElMessage } from 'element-plus'
 import { utilService } from '../services/util.service.js'
 
 import { actions, mutations } from '../store'
-import toyList from '../cmps/toy/toy-list.vue'
-import toyFilter from '../cmps/toy/toy-filter.vue'
-import loader from '../cmps/loader.vue'
+import toyList from '../components/toy/toy-list.vue'
+import toyFilter from '../components/toy/toy-filter.vue'
+import loader from '../components/loader.vue'
 
 export default {
   data() {

@@ -46,10 +46,10 @@ import { toyService } from '../services/toy.service.js'
 import { socketService } from '../services/socket.service'
 
 import { reviewService } from '../services/review.service'
-import reviewList from '../cmps/review/review-list.vue'
+import reviewList from '../components/review/review-list.vue'
 
-import loader from '../cmps/loader.vue'
-import chatBtn from '../cmps/chat-btn.vue'
+import loader from '../components/loader.vue'
+import chatBtn from '../components/chat-btn.vue'
 
 export default {
   components: {

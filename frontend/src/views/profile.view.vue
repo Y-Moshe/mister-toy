@@ -8,7 +8,7 @@
 <script>
 import { ElMessage } from 'element-plus'
 import { reviewService } from '../services/review.service'
-import reviewList from '../cmps/review/review-list.vue'
+import reviewList from '../components/review/review-list.vue'
 
 export default {
   components: { reviewList },
