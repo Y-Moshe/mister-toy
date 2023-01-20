@@ -3,7 +3,7 @@ import { IFilterBy, IToy } from '../../models'
 import { toyService } from '../../services/toy.service.js'
 import { mutations } from '../mutations'
 
-interface IToyState {
+export interface IToyState {
   toys: IToy[]
   totalPages: number
   filterBy: IFilterBy

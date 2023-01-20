@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { SwitchButton } from '@element-plus/icons-vue'
 
-import { actions } from '../store'
+import { useStore, actions } from '../store'
 import { IUser } from '../models'
 
 const store = useStore()

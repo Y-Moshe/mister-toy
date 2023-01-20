@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 import { Delete } from '@element-plus/icons-vue'
 
+import { useStore } from '../../store'
 import { IReview } from '../../models'
 defineProps<{ review: IReview }>()
 

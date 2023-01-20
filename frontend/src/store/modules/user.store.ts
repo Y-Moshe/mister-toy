@@ -3,7 +3,7 @@ import { IUser } from '../../models'
 import { authService } from '../../services/auth.service'
 import { mutations } from '../mutations'
 
-interface IUserState {
+export interface IUserState {
   user: IUser[]
 }
 

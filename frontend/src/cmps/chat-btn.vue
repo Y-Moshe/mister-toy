@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, reactive } from 'vue'
-import { useStore } from 'vuex'
 import { ChatDotRound, Promotion } from '@element-plus/icons-vue'
+
+import { useStore } from '../store'
 import { IUser } from '../models'
 defineProps<{ messages: any[] }>()
 const emit = defineEmits(['messageSend'])

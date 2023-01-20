@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 import { Delete, Edit, Reading, MoreFilled } from '@element-plus/icons-vue'
+
+import { useStore } from '../../store'
 import { IToy } from '../../models'
 
 const props = defineProps<{ toy: IToy }>()

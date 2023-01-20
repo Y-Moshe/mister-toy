@@ -4,7 +4,7 @@ import 'element-plus/dist/index.css'
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store, { storeKey } from './store'
 import { clickOutsideDirective, focusDirective, rainbowDirective } from './directives'
 
 import './styles/main.scss'
@@ -15,7 +15,7 @@ app.directive('outside-click', clickOutsideDirective)
 app.directive('focus', focusDirective)
 app.directive('rainbow', rainbowDirective)
 app.use(router)
-app.use(store)
+app.use(store, storeKey)
 app.use(ElementPlus)
 
 app.mount('#app')

@@ -49,10 +49,9 @@
 <script lang="ts" setup>
 import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 
-import { actions } from '../store'
+import { useStore, actions } from '../store'
 
 export interface ICredentials {
   username: string;
