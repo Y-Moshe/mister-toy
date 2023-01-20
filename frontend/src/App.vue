@@ -1,25 +1,18 @@
-<template>
-  <section class="main-app main-layout">
-    <app-header class="main-header main-layout full" />
-    <router-view class="main-view" />
-    <app-footer class="main-footer full" />
-  </section>
-</template>
-
-<script>
-import { RouterView } from 'vue-router'
+<script lang="ts" setup>
+import { onBeforeMount } from 'vue'
 
 import appHeader from './components/app-header.vue'
 import appFooter from './components/app-footer.vue'
+import { useStore, actions } from './store'
 
-export default {
-  components: {
-    appHeader,
-    appFooter
-  },
-  created() {
-    this.$store.dispatch({ type: 'loadUser' })
-  }
-}
-
+const store = useStore()
+onBeforeMount(() => store.dispatch(actions.loadUser()))
 </script>
+
+<template>
+  <section class="main-app main-layout">
+    <app-header />
+    <router-view class="main-view" />
+    <app-footer />
+  </section>
+</template>

@@ -29,7 +29,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <header>
+  <header class="main-header main-layout full">
     <nav class="main-nav">
       <router-link to="/">
         <h1>Toys</h1>

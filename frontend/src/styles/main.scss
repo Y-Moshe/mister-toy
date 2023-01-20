@@ -10,46 +10,27 @@
 @import './basics/_layout.scss';
 
 // Components
-@import './components/loader.scss';
-@import './components/chat-btn.scss';
-
 @import './components/toy/toy-filter.scss';
 @import './components/toy/toy-list.scss';
 @import './components/toy/toy-preview.scss';
 
 @import './components/review/review-preview.scss';
+@import './components/app-header';
+@import './components/app-footer';
+@import './components/chat-btn.scss';
+@import './components/loader';
 
 // Views
-@import './views/app-toy-view.scss';
-@import './views/dashboard-view.scss';
-@import './views/auth-view.scss';
-@import './views/toy-details.scss';
+@import './views/toy-app.view';
+@import './views/auth.view';
+@import './views/toy-details.view';
 
 .main-app {
-    min-height: 100vh;
-    grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
 }
 
 .main-view {
-    margin-block: 15px;
-    padding-inline: 10px;
-}
-
-.main-header {
-    background-color: #2f2e3d;
-    padding: 25px;
-    color: white;
-}
-
-.main-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main-footer {
-    background-color: #5d7baf;
-    color: whitesmoke;
-    padding: 10px;
-    text-align: center;
+  margin-block: 15px;
+  padding-inline: 10px;
 }
