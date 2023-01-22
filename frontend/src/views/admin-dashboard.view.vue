@@ -90,11 +90,11 @@ const loadPieDataset = () => {
 <template>
   <section class="dashboard">
     <el-row justify="center">
-      <el-col :offset="2" :span="10">
+      <el-col :offset="2" :xs="20" :sm="10">
         <awesome-bar-chart :data="barChartData" />
       </el-col>
 
-      <el-col :span="10">
+      <el-col :xs="20" :span="10">
         <awesome-pie-chart :data="pieChartData" />
       </el-col>
     </el-row>

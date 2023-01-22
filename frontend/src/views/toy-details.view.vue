@@ -122,7 +122,7 @@ const handleRemoveReview = async (reviewId: string) => {
           <el-col :span="16">
             <el-input type="text" v-model="chat.txt" />
           </el-col>
-          <el-col :offset="1" :span="4">
+          <el-col :offset="1" :span="7">
             <el-button
               type="success"
               @click="handleSubmitReview"

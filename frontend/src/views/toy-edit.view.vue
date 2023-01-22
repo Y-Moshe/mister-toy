@@ -68,7 +68,7 @@ const handleUpload = async (ev) => {
     <el-form
       :model="toy"
       label-position="left"
-      label-width="100px"
+      :label-width="100"
       v-loading="isLoading"
     >
       <el-form-item label="Name">
@@ -76,7 +76,7 @@ const handleUpload = async (ev) => {
       </el-form-item>
 
       <el-form-item label="Img URL">
-        <el-col :span="6">
+        <el-col :xs="24" :md="14">
           <el-input
             type="text"
             v-model="toy.imgUrl"
@@ -86,7 +86,7 @@ const handleUpload = async (ev) => {
         <el-col :offset="1" :span="1">
           <label>Or</label>
         </el-col>
-        <el-col :span="3">
+        <el-col :md="8">
           <input type="file" ref="fileRef" @change="handleUpload" hidden />
           <el-button
             type="primary"
@@ -112,20 +112,24 @@ const handleUpload = async (ev) => {
         </el-col>
       </el-form-item>
 
-      <el-form-item label="Price">
-        <el-input type="number" v-model="toy.price" />
+      <el-form-item label="Price" class="w-100">
+        <el-col :xs="24" :sm="4">
+          <el-input type="number" v-model="toy.price" />
+        </el-col>
       </el-form-item>
 
-      <el-form-item label="Tags">
-        <el-select multiple v-model="toy.tags" placeholder="Select..">
-          <el-option
-            v-for="option in tagsOptions"
-            :key="option"
-            :value="option"
-          >
-            {{ option }}
-          </el-option>
-        </el-select>
+      <el-form-item label="Tags" class="w-100">
+        <el-col :xs="24" :sm="12">
+          <el-select multiple v-model="toy.tags" placeholder="Select.."  class="w-100">
+            <el-option
+              v-for="option in tagsOptions"
+              :key="option"
+              :value="option"
+            >
+              {{ option }}
+            </el-option>
+          </el-select>
+        </el-col>
       </el-form-item>
 
       <el-form-item label="In Stock">
