@@ -1,0 +1,113 @@
+[{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fbd"
+  },
+  "username": "Sonja",
+  "fullname": "Yauma Earls",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fbe"
+  },
+  "username": "Robbin",
+  "fullname": "Shaun Symes",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fbf"
+  },
+  "username": "Peter",
+  "fullname": "Marcedia Shauna",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc0"
+  },
+  "username": "Trang",
+  "fullname": "Chassaing Spencer",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc1"
+  },
+  "username": "Ruben",
+  "fullname": "Dung Lake",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc2"
+  },
+  "username": "Bryan",
+  "fullname": "Robin Lewis",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc3"
+  },
+  "username": "Walter",
+  "fullname": "Lola Chan",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc4"
+  },
+  "username": "Megan",
+  "fullname": "Leopoldo Espinosa",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637f8d4960228ea890a78fc5"
+  },
+  "username": "Ashwin",
+  "fullname": "Georgia Conk",
+  "isAdmin": false,
+  "password": "testpasswordtest"
+},{
+  "_id": {
+    "$oid": "637fa734e3a00be3f9f56b89"
+  },
+  "username": "Moshe",
+  "password": "$2b$10$yZXC8ydAfHZYfsFKXWTI0uO2VHixqWP/WQ6s.ywZv56W7sO6JrlKS",
+  "fullname": "Moshe nehemiah",
+  "isAdmin": true
+},{
+  "_id": {
+    "$oid": "6380bc14c21e77fb6276ffda"
+  },
+  "username": "Maor123",
+  "password": "$2b$10$uBEg8on9px.8SZ2rMSebkOT9ugRX8Y76pVAzY0TTyhSzIXYs6yn/2",
+  "fullname": "Maor",
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "6380c54e2806cd342b683def"
+  },
+  "username": "admin",
+  "password": "$2b$10$W9fUsX5lXLjoSPzZPWEU.u9TlQCCpYhQWN4ghmnrPSzKK8/0RHvui",
+  "fullname": "Admin",
+  "isAdmin": true
+},{
+  "_id": {
+    "$oid": "6380c66c2806cd342b683df0"
+  },
+  "username": "test",
+  "password": "$2b$10$7hgg06TC3/2q7waXTJ.Qleh9NTGrGv3Swn4QSr.vV5WmFZ0Yymmhu",
+  "fullname": "Test 123",
+  "isAdmin": false
+},{
+  "_id": {
+    "$oid": "63c97ae45fff3380e7e30af9"
+  },
+  "username": "asd123",
+  "password": "$2b$10$FhYRbt6n5GIHfRxznh3RtOFgJJgMDNbhmdxZ96dVT9d4PCRe6trdi",
+  "fullname": "123",
+  "isAdmin": false
+}]
