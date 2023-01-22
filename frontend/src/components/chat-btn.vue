@@ -21,7 +21,7 @@ const handleMessage = () => {
 }
 
 const getUserName = (name: string) =>
-  user.value.fullname === name ? 'Me' : name
+  user.value?.fullname === name ? 'Me' : name
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const getUserName = (name: string) =>
     >
       <div class="chat-content">
         <p v-for="msg in messages" :key="msg.id" class="chat-msg">
-          <span>{{ getUserName(msg.fullname) }}</span
+          <span>{{ getUserName(msg?.fullname) }}</span
           >: {{ msg.txt }}
         </p>
       </div>

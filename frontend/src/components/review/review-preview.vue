@@ -19,7 +19,7 @@ const user = computed(() => store.getters.user)
           alt="profile img"
           class="review-profile-img"
         />
-        <span>{{ user?.fullname }}</span>
+        <span>{{ user?.fullname || 'Guest' }}</span>
       </div>
     </router-link>
 
