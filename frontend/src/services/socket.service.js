@@ -1,18 +1,17 @@
 import io from 'socket.io-client'
-import { authService } from './auth.service'
 
-const EMITS = {
-  SOCKET_EMIT_SEND_MSG: 'chat-send-msg',
-  SOCKET_EMIT_SET_TOPIC: 'chat-set-topic',
-  SOCKET_EMIT_USER_WATCH: 'user-watch'
+export const socketEmits = {
+  SEND_MSG: 'chat-send-msg',
+  SET_TOPIC: 'chat-set-topic',
+  USER_WATCH: 'user-watch'
 }
 
-const EVENTS = {
-  SOCKET_EVENT_ADD_MSG: 'chat-add-msg',
-  SOCKET_EVENT_USER_UPDATED: 'user-updated',
-  SOCKET_EVENT_REVIEW_ADDED: 'review-added',
-  SOCKET_EVENT_REVIEW_REMOVED: 'review-removed',
-  SOCKET_EVENT_REVIEW_ABOUT_YOU: 'review-about-you'
+export const socketEvents = {
+  ADD_MSG: 'chat-add-msg',
+  USER_UPDATED: 'user-updated',
+  REVIEW_ADDED: 'review-added',
+  REVIEW_REMOVED: 'review-removed',
+  REVIEW_ABOUT_YOU: 'review-about-you'
 }
 
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
@@ -28,10 +27,6 @@ function createSocketService() {
   const socketService = {
     setup() {
       socket = io(baseUrl)
-      setTimeout(() => {
-        const user = authService.getLoggedinUser()
-        if (user) this.login(user)
-      }, 500)
     },
     on(eventName, cb) {
       socket.on(eventName, cb)
@@ -53,9 +48,7 @@ function createSocketService() {
     },
     terminate() {
       socket = null
-    },
-    emits: EMITS,
-    events: EVENTS
+    }
   }
   return socketService
 }
