@@ -36,12 +36,15 @@ const loadToy = async () => {
 
 const handleSubmit = async () => {
   if (!toyId.value) toy.value.createdAt = Date.now()
+  isLoading.value = true
   try {
     await store.dispatch(actions.saveToy(toy.value))
     ElMessage.success('The toy saved successfully!')
     router.push('/')
   } catch (err) {
     ElMessage.error('Failed to save the toy')
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -129,7 +132,7 @@ const handleUpload = async (ev) => {
         <el-checkbox v-model="toy.inStock" />
       </el-form-item>
 
-      <el-button type="success" @click="handleSubmit">{{ btnText }}</el-button>
+      <el-button type="success" @click="handleSubmit" :loading="isLoading">{{ btnText }}</el-button>
     </el-form>
   </section>
 </template>
