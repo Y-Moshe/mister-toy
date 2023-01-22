@@ -48,8 +48,6 @@ export const toyModule: Module<IToyState, any> = {
     },
     setFilterBy(state, { filterBy }) {
       state.filterBy = { ...filterBy }
-      state.toys = []
-      this.dispatch({ type: 'loadToys' })
     },
   },
   actions: {
