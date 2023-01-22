@@ -14,6 +14,7 @@ export interface IToy {
   tags: string[]
   imgUrl: string
   reviews: IReview[]
+  createdAt?: number
 }
 
 export interface IReview {
