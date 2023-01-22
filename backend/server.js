@@ -31,7 +31,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 // Delay middleware
-const RESPONSE_DELAY = 1500
+const RESPONSE_DELAY = 1000
 app.use((req, res, next) => setTimeout(next, RESPONSE_DELAY))
 
 // Routes
