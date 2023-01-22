@@ -43,13 +43,16 @@ const handleLogout = async () => {
           <router-link to="/admin/dashboard">Dashboard</router-link>
         </li>
         <li>
-          <el-button
-            :loading="isLoading"
-            :disabled="isLoading"
-            type="danger"
-            :icon="SwitchButton"
-            @click="handleLogout"
-          ></el-button>
+          <el-tooltip content="Logout">
+            <el-button
+              :loading="isLoading"
+              :disabled="isLoading"
+              :type="isLoading ? '' : 'danger'"
+              size="small"
+              :icon="SwitchButton"
+              @click="handleLogout"
+            ></el-button>
+          </el-tooltip>
         </li>
       </ul>
       <ul class="clean-list flex gap-15" v-else>
