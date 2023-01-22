@@ -15,7 +15,7 @@ async function query(filterBy) {
   const criteria = _buildCriteria(filterBy)
 
   const sortBy = {}
-  sortBy[filterBy.sortBy.toLowerCase()] = 1
+  sortBy[filterBy?.sortBy?.toLowerCase() || 'name'] = 1
   const toys =  await collection
     .find(criteria)
     .sort(sortBy)
@@ -77,22 +77,18 @@ function _mapToyObj(toy) {
 }
 
 function _buildCriteria(filterBy = {}) {
-  const {
-    keyword, status, tags,
-    // page, itemsPerPage
-  } = filterBy
   const criteria = {}
 
-  if (keyword) {
-    criteria.name = { $regex: keyword, $options: 'i' }
+  if (filterBy?.keyword) {
+    criteria.name = { $regex: filterBy.keyword, $options: 'i' }
   }
 
-  if (tags && tags.length) {
-    criteria.tags = { $in: tags }
+  if (filterBy?.tags && filterBy.tags.length) {
+    criteria.tags = { $in: filterBy.tags }
   }
 
-  if (status) {
-    criteria.inStock = { $eq: status === 'In-stock' ? true : false }
+  if (filterBy?.status) {
+    criteria.inStock = { $eq: filterBy.status === 'In-stock' ? true : false }
   }
 
   return criteria
