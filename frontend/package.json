@@ -1,6 +1,6 @@
 {
   "name": "mister-toy-frontend",
-  "version": "1.5.2",
+  "version": "1.5.4",
   "scripts": {
     "start": "vite",
     "dev": "vite",

@@ -1,6 +1,6 @@
 {
   "name": "mister-toy",
-  "version": "1.5.2",
+  "version": "1.5.4",
   "scripts": {
     "start:server": "cd backend && npm start",
     "start:client": "cd frontend && npm start",
