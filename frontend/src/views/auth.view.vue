@@ -1,51 +1,3 @@
-<template>
-  <section class="auth-view">
-    <el-form
-      status-icon
-      ref="ruleFormRef"
-      :model="credentials"
-      :rules="rules"
-      :disabled="isLoading"
-      @keydown.enter="handleSubmit(ruleFormRef)"
-      label-position="left"
-      label-width="100px"
-    >
-      <el-form-item>
-        <h1>{{ authType }}</h1>
-      </el-form-item>
-
-      <el-form-item label="Fullname" v-if="!isLogin" prop="fullname" required>
-        <el-input type="text" v-model="credentials.fullname" />
-      </el-form-item>
-
-      <el-form-item label="Username" prop="username" required>
-        <el-input type="text" v-model="credentials.username" v-focus />
-      </el-form-item>
-
-      <el-form-item label="Password" prop="password" required>
-        <el-input type="password" v-model="credentials.password" />
-      </el-form-item>
-
-      <el-form-item>
-        <el-button
-          type="primary"
-          @click="handleSubmit(ruleFormRef)"
-          :loading="isLoading"
-        >
-          {{ authType }}
-        </el-button>
-        <template v-if="isLogin">
-          <el-divider>Or</el-divider>
-          <el-button type="info" @click="demoLogin" plain>Demo login</el-button>
-          <el-button type="warning" @click="loginAsAdmin" plain>
-            Login as Admin
-          </el-button>
-        </template>
-      </el-form-item>
-    </el-form>
-  </section>
-</template>
-
 <script lang="ts" setup>
 import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -148,3 +100,51 @@ const loginAsAdmin = () => {
   handleSubmit(ruleFormRef.value)
 }
 </script>
+
+<template>
+  <section class="auth-view">
+    <el-form
+      status-icon
+      ref="ruleFormRef"
+      :model="credentials"
+      :rules="rules"
+      :disabled="isLoading"
+      @keydown.enter="handleSubmit(ruleFormRef)"
+      label-position="left"
+      label-width="100px"
+    >
+      <el-form-item>
+        <h1>{{ authType }}</h1>
+      </el-form-item>
+
+      <el-form-item label="Fullname" v-if="!isLogin" prop="fullname" required>
+        <el-input type="text" v-model="credentials.fullname" />
+      </el-form-item>
+
+      <el-form-item label="Username" prop="username" required>
+        <el-input type="text" v-model="credentials.username" v-focus />
+      </el-form-item>
+
+      <el-form-item label="Password" prop="password" required>
+        <el-input type="password" v-model="credentials.password" />
+      </el-form-item>
+
+      <el-form-item>
+        <el-button
+          type="primary"
+          @click="handleSubmit(ruleFormRef)"
+          :loading="isLoading"
+        >
+          {{ authType }}
+        </el-button>
+        <template v-if="isLogin">
+          <el-divider>Or</el-divider>
+          <el-button type="info" @click="demoLogin" plain>Demo login</el-button>
+          <el-button type="warning" @click="loginAsAdmin" plain>
+            Login as Admin
+          </el-button>
+        </template>
+      </el-form-item>
+    </el-form>
+  </section>
+</template>

@@ -1,7 +1,102 @@
+<script lang="ts" setup>
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { toyService } from '../services/toy.service.js'
+import { socketService, socketEmits, socketEvents } from '../services/socket.service'
+import { reviewService } from '../services/review.service'
+import { IReview, IToy } from '../models'
+
+import reviewList from '../components/review/review-list.vue'
+import loader from '../components/loader.vue'
+import chatBtn from '../components/chat-btn.vue'
+
+const route = useRoute()
+const toy = ref<IToy>()
+const isLoading = ref(false)
+const chat = reactive({
+  txt: '',
+  messages: [],
+})
+
+const toyId = computed(() => route.params.id)
+const stockLbl = computed(() =>
+  toy.value.inStock ? 'In-stock' : 'Out-of-stock'
+)
+const inStockClass = computed(() => ({
+  [toy.value.inStock ? 'in-stock' : 'out-of-stock']: true,
+}))
+const formattedDate = computed(() =>
+  new Date(toy.value.createdAt).toLocaleTimeString()
+)
+const formattedCurrency = computed(() => {
+  const price = toy.value.price
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(price)
+})
+
+onMounted(() => {
+  socketService.emit(socketEmits.SET_TOPIC, toyId.value)
+  socketService.on(socketEvents.REVIEW_ADDED, reviewAdded)
+  socketService.on(socketEvents.REVIEW_REMOVED, removeReview)
+  socketService.on(socketEvents.ADD_MSG, addChatMessage)
+
+  toyService
+    .getById(toyId.value)
+    .then((result) => (toy.value = result))
+    .catch(() => ElMessage.error(`Failed to load the toy ${toyId.value}!`))
+})
+
+const addChatMessage = (msg: any) => chat.messages.push(msg)
+const sendChatMessage = (msg: string) => socketService.emit(socketEmits.SEND_MSG, msg)
+
+const reviewAdded = (review: IReview) => {
+  if (!review.userId) return // do nothing in case of guest
+  toy.value.reviews.push(review)
+  ElMessage.success('New review added!')
+}
+
+const removeReview = (reviewId: string) => {
+  const reviewIdx = toy.value.reviews.findIndex((rev) => rev._id === reviewId)
+  toy.value.reviews.splice(reviewIdx, 1)
+}
+
+const handleSubmitReview = async () => {
+  try {
+    isLoading.value = true
+    const review = await reviewService.add({
+      toyId: toyId.value,
+      txt: chat.txt,
+    })
+
+    toy.value.reviews.push(review)
+    ElMessage.success('Review added successfully!')
+    chat.txt = ''
+  } catch (err) {
+    ElMessage.error('Failed to add your review')
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const handleRemoveReview = async (reviewId: string) => {
+  try {
+    await reviewService.remove(reviewId)
+    removeReview(reviewId)
+    ElMessage.success('Review successfully removed!')
+  } catch (error) {
+    ElMessage.error('Failed to remove your review')
+  }
+}
+</script>
+
 <template>
   <section class="toy-details">
     <loader :show="!toy" />
 
+    <!-- Toy details -->
     <section v-if="toy">
       <small>ID: {{ toy._id }}</small>
       <h1>{{ toy.name }}</h1>
@@ -19,135 +114,30 @@
         </div>
       </div>
 
-      <hr>
+      <el-divider />
 
-      <el-form :model="form" :disabled="isLoading">
+      <!-- Add review -->
+      <el-form :model="chat" :disabled="isLoading">
         <el-form-item label="Add Review">
           <el-col :span="16">
-            <el-input type="text" v-model="form.txt" />
+            <el-input type="text" v-model="chat.txt" />
           </el-col>
           <el-col :offset="1" :span="4">
-            <el-button type="success" @click="handleSubmitReview" class="w-100" :loading="isLoading">Post</el-button>
+            <el-button
+              type="success"
+              @click="handleSubmitReview"
+              class="w-100"
+              :loading="isLoading"
+              >Post</el-button
+            >
           </el-col>
         </el-form-item>
       </el-form>
-      <hr>
+      <el-divider />
 
+      <!-- Reviews -->
       <review-list :reviews="toy.reviews" @remove="handleRemoveReview" />
-
     </section>
-    <chat-btn :messages="chatMessages" @messageSend="sendChatMessage" />
+    <chat-btn :messages="chat.messages" @messageSend="sendChatMessage" />
   </section>
 </template>
-
-<script>
-import { ElMessage } from 'element-plus'
-import { toyService } from '../services/toy.service.js'
-import { socketService } from '../services/socket.service'
-
-import { reviewService } from '../services/review.service'
-import reviewList from '../components/review/review-list.vue'
-
-import loader from '../components/loader.vue'
-import chatBtn from '../components/chat-btn.vue'
-
-export default {
-  components: {
-    loader,
-    reviewList,
-    chatBtn
-  },
-  data() {
-    return {
-      toy: null,
-      form: {
-        txt: ''
-      },
-      isLoading: false,
-      chatMessages: []
-    }
-  },
-  created() {
-    const { emits, events } = socketService
-    socketService.emit(emits.SOCKET_EMIT_SET_TOPIC, this.toyId)
-    socketService.on(events.SOCKET_EVENT_REVIEW_ADDED, this.reviewAdded)
-    socketService.on(events.SOCKET_EVENT_REVIEW_REMOVED, this.removeReview)
-    socketService.on(events.SOCKET_EVENT_ADD_MSG, this.addChatMessage)
-
-    toyService.getById(this.toyId)
-      .then(toy => this.toy = toy)
-      .catch(() => ElMessage.error(`Failed to load the toy ${this.toyId}!`))
-  },
-  methods: {
-    addChatMessage(msgObj) {
-      this.chatMessages.push(msgObj)
-    },
-    sendChatMessage(msg) {
-      const { emits } = socketService
-      socketService.emit(emits.SOCKET_EMIT_SEND_MSG, msg)
-    },
-    reviewAdded(review) {
-      this.toy.reviews.push(review)
-      ElMessage.success('New review added!')
-    },
-    removeReview(reviewId) {
-      const reviewIdx = this.toy.reviews.find(rev => rev._id === reviewId)
-      this.toy.reviews.splice(reviewIdx, 1)
-    },
-    handleSubmitReview() {
-      this.isLoading = true
-      const reviewToSave = {
-        toyId: this.toyId,
-        txt: this.form.txt
-      }
-
-      reviewService.add(reviewToSave)
-        .then(review => {
-          this.toy.reviews.push(review)
-          ElMessage.success('Review added successfully!')
-
-          this.form.txt = ''
-        })
-        .catch(() => ElMessage.error('Failed to add your review'))
-        .finally(() => this.isLoading = false)
-    },
-    handleRemoveReview(reviewId) {
-      reviewService.remove(reviewId)
-        .then(res => {
-          console.log('res', res)
-          this.removeReview(reviewId)
-
-          ElMessage.success('Review successfully removed!')
-        })
-        .catch(() => ElMessage.error('Failed to remove your review'))
-    }
-  },
-  computed: {
-    toyId() {
-      return this.$route.params.id
-    },
-    user() {
-      return this.$store.getters.user
-    },
-    formattedDate() {
-      return new Date(this.toy.createdAt).toLocaleTimeString()
-    },
-    inStockClass() {
-      return {
-        'in-stock': this.toy.inStock,
-        'out-of-stock': !this.toy.inStock
-      }
-    },
-    stockLbl() {
-      return this.toy.inStock ? 'In-stock' : 'Out-of-stock'
-    },
-    formattedCurrency() {
-      const price = this.toy.price
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(price)
-    }
-  }
-}
-</script>

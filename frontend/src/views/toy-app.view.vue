@@ -1,81 +1,67 @@
+<script lang="ts" setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { utilService } from '../services/util.service.js'
+import { useStore, actions, mutations } from '../store'
+import { IFilterBy } from '../models'
+
+import toyList from '../components/toy/toy-list.vue'
+import toyFilter from '../components/toy/toy-filter.vue'
+
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
+const isLoading = ref(false)
+
+const filterBy = computed(() => store.getters.filterBy)
+const toys = computed(() => store.getters.toys)
+const user = computed(() => store.getters.user)
+
+onMounted(() => store.dispatch(actions.loadToys()))
+
+watch(route, currRoute => {  
+  store.commit(mutations.setFilterBy(currRoute.query as any))
+  store
+    .dispatch(actions.loadToys())
+    .catch(() => ElMessage.error('Failed to load toys!'))
+    .finally(() => (isLoading.value = false))
+}, { deep: true })
+
+const doChangeFilter = async (filter: IFilterBy) => {
+  isLoading.value = true
+  filter = utilService.deepCopy(filter)
+  router.replace({
+    path: '/toy',
+    query: filter as any
+  })
+}
+
+const handleFilterChange = utilService.debounce(doChangeFilter, 500)
+
+const removeToy = async (toyId: string) => {
+  store
+    .dispatch(actions.removeToy(toyId))
+    .then(() => ElMessage.success(`The toy removed successfully!`))
+    .catch(() => ElMessage.error(`Failed to remove ${toyId}`))
+}
+</script>
+
 <template>
   <section class="toy-app">
     <toy-filter :filterBy="filterBy" @change="handleFilterChange" />
     <div class="add-toy" v-if="user?.isAdmin">
       <router-link to="/toy/edit">Add a toy +</router-link>
     </div>
-    <hr>
+    <el-divider />
 
-    <loader :show="toys.length === 0" />
+    <el-progress
+      v-if="isLoading"
+      :indeterminate="true"
+      :percentage="50"
+      :show-text="false"
+      status="warning"
+    />
     <toy-list :toys="toys" @remove="removeToy" />
-
-    <!-- <pagination
-      :page="filterBy.page"
-      :totalPages="totalPages"
-      @prev="goNexrPrevPage(-1)"
-      @page="goToPage"
-      @next="goNexrPrevPage(1)"
-    /> -->
   </section>
 </template>
-
-<script>
-import { ElMessage } from 'element-plus'
-import { utilService } from '../services/util.service.js'
-
-import { actions, mutations } from '../store'
-import toyList from '../components/toy/toy-list.vue'
-import toyFilter from '../components/toy/toy-filter.vue'
-import loader from '../components/loader.vue'
-
-export default {
-  data() {
-    return {
-      handleFilterChange: () => {}
-    }
-  },
-  created() {
-    this.$store.dispatch(actions.loadToys())
-    this.handleFilterChange = utilService.debounce(this.doChangeFilter, 500)
-  },
-  methods: {
-    removeToy(toyId) {
-      this.$store.dispatch(actions.removeToy(toyId))
-        .then(() => ElMessage.success(`The toy removed successfully!`))
-        .catch(() => ElMessage.error(`Failed to remove ${toyId}`))
-    },
-    doChangeFilter(filterBy) {
-      this.$store.commit(mutations.setFilterBy(utilService.deepCopy(filterBy)))
-    },
-    // goNexrPrevPage(diff) {
-    //   const { page: currPage } = this.filterBy
-    //   const nextPage = currPage + diff
-    //   const target = { name: 'page', value: nextPage }
-    //   this.$store.commit(mutations.setFilterBy(target))
-    // },
-    // goToPage(page) {
-    //   const target = { name: 'page', value: page }
-    //   this.$store.commit(mutations.setFilterBy(target))
-    // },
-  },
-  computed: {
-    filterBy() {
-      return this.$store.getters.filterBy
-    },
-    toys() {
-      return this.$store.getters.toys
-    },
-    user() {
-      return this.$store.getters.user
-    },
-    // totalPages() {
-    //   return this.$store.getters.totalPages
-    // }
-  },
-  components: {
-    toyList,
-    toyFilter,
-    loader
-  }
-}
-</script>
