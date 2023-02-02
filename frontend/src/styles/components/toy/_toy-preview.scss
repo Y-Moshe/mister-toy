@@ -2,16 +2,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    
-    @media (min-width: 576px) {
-        max-width: 250px;
-    }
 
     & .el-card__header h1 {
-        max-width: 100vw;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        @media (min-width: $sm-breakpoint) {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     }
 
     & .el-card__header,
