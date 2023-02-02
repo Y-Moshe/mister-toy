@@ -4,10 +4,11 @@
     height: 100%;
 
     & .el-card__header h1 {
-        @media (min-width: $sm-breakpoint) {
+        @include for-tablet-layout {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+
         }
     }
 

@@ -1,7 +1,7 @@
 /* Media queries Breakpoint mixins */
 
-@mixin for-mobile-layout {
-  @media (max-width: $break-narrow) {
+@mixin for-tablet-layout {
+  @media (min-width: $break-tablet) {
     @content;
   }
 }
@@ -26,7 +26,7 @@
 
 @mixin layoutGTC($max) {
   grid-template-columns:
-    minmax($layoutPadding, 1fr)
+    minmax($layout-padding, 1fr)
     minmax(auto, $max)
-    minmax($layoutPadding, 1fr);
+    minmax($layout-padding, 1fr);
 }

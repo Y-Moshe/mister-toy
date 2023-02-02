@@ -7,22 +7,11 @@
   --el-font-size-extra-small: 14px;
 }
 
-// COLOR PALETTE
-$clr1: #FF521C;
-$clr2: #000;
-$clr3: #fff;
-$clr4: darken($clr3, 40%);
-$clr5: #2d2d2d;
-
-// LAYOUT
-$layoutPadding: 20px;
-
-// LAYOUT BREAKPOINTS
-$sm-breakpoint: 587px;
+// Layout
+// NOTE: This app is Mobile first layout design!
+$layout-padding: 20px;
+// Breakpoints
+$break-tablet: 587px;
 $break-narrow: 1200px;
 $break-normal: 1360px;
 $break-wide: 1920px;
-
-$padded-break-narrow: $break-narrow + $layoutPadding * 2;
-$padded-break-normal: $break-normal + $layoutPadding * 2;
-$padded-break-wide: $break-wide + $layoutPadding * 2;

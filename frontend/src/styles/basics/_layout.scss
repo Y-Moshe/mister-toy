@@ -2,9 +2,11 @@
   grid-column: 1 / -1;
 }
 
+// NOTE: This app is Mobile first layout design!
+
 .main-layout {
   display: grid;
-  grid-template-columns: $layoutPadding 1fr $layoutPadding;
+  grid-template-columns: $layout-padding 1fr $layout-padding;
 
   > * {
     grid-column: 2;
